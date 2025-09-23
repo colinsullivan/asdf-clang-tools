@@ -63,16 +63,18 @@ validate_platform() {
 
   case $kernel in
   Darwin)
-    USE_KERNEL=macosx
     if [ "$ASDF_CLANG_TOOLS_MACOS_IGNORE_ARCH" != 0 ]; then
+      USE_KERNEL=macosx
       USE_ARCH=amd64
       log "ASDF_CLANG_TOOLS_MACOS_IGNORE_ARCH is set - using '$USE_ARCH' binary."
     else
       case $arch in
       x86_64)
+        USE_KERNEL=macosx
         USE_ARCH=amd64
         ;;
       arm64)
+        USE_KERNEL=macos-arm
         USE_ARCH=arm64
         ;;
       esac
