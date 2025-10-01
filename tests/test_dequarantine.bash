@@ -31,18 +31,18 @@ run_test() {
   TOOLNAME="clang-format"
   VERSION="17.0.6"
   case $use_kernel in
-    macosx)
-      PLATFORM="${use_kernel}-amd64"
-      ;;
-    macos-arm)
-      PLATFORM="${use_kernel}-arm64"
-      ;;
+  macosx)
+    PLATFORM="${use_kernel}-amd64"
+    ;;
+  macos-arm)
+    PLATFORM="${use_kernel}-arm64"
+    ;;
   esac
   DUMMY_FILE="${TOOLNAME}-${VERSION}_${PLATFORM}"
 
   # Create dummy files with quarantine attribute
-  echo "dummy binary" > "$ASDF_DOWNLOAD_PATH/$DUMMY_FILE"
-  echo "fake-checksum  $DUMMY_FILE" > "$ASDF_DOWNLOAD_PATH/${DUMMY_FILE}.sha512sum"
+  echo "dummy binary" >"$ASDF_DOWNLOAD_PATH/$DUMMY_FILE"
+  echo "fake-checksum  $DUMMY_FILE" >"$ASDF_DOWNLOAD_PATH/${DUMMY_FILE}.sha512sum"
 
   # Add quarantine attribute to simulate downloaded file
   xattr -w com.apple.quarantine "test" "$ASDF_DOWNLOAD_PATH/$DUMMY_FILE" 2>/dev/null || true
@@ -56,12 +56,12 @@ run_test() {
   # Set these AFTER sourcing since utils.bash resets them
   USE_KERNEL=$use_kernel
   case $use_kernel in
-    macosx)
-      USE_ARCH=amd64
-      ;;
-    macos-arm)
-      USE_ARCH=arm64
-      ;;
+  macosx)
+    USE_ARCH=amd64
+    ;;
+  macos-arm)
+    USE_ARCH=arm64
+    ;;
   esac
   USE_PLATFORM="${USE_KERNEL}-${USE_ARCH}"
 
@@ -72,12 +72,12 @@ run_test() {
 
   # Override validate_deps to skip dependency checks in tests
   validate_deps() {
-    :  # no-op
+    : # no-op
   }
 
   # Override validate_platform to keep our test values
   validate_platform() {
-    :  # no-op - we've already set USE_KERNEL, USE_ARCH, USE_PLATFORM
+    : # no-op - we've already set USE_KERNEL, USE_ARCH, USE_PLATFORM
   }
 
   # Preserve xattrs during cp - wrap cp to use -c flag
